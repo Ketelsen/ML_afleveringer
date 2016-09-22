@@ -8,8 +8,9 @@ from scipy.io import loadmat
 import scipy.sparse as sp
 
 
-# txt filen åbnes med numpy
-X = np.genfromtxt('../Data/mpg.txt',dtype='float',usecols=(0,1,2,3,4,5,6,7))
+# txt filen åbnes med numpy 
+X = np.genfromtxt('../Data/mpg.txt',dtype='float',usecols=(0,1,2,3,4,5,6,7),
+                  missing_values={3:"?"}, filling_values={3:0})
 
 #Array konverteres til en matrix
 X = np.asmatrix(X)
@@ -44,7 +45,7 @@ b = np.zeros((398, 3))
 b[np.arange(398), a] = 1
 b = np.mat(b)
 
-#Herefter sammensættes de to matricer (husk slet origin)
+#Herefter sammensættes de to matricer og slet origin
 X = np.concatenate((X, b), axis=1)
 X = np.asarray(X)
 X = np.delete(X, 7, 1)
@@ -54,13 +55,17 @@ print(X[0])
 
 attributeNames = ['mpg','cylinders','displacement','horsepower','weight',
                   'acceleration','model year','usa','europe','japan']
-#Nu indsættes labels
-classLabels = 
-classNames = sorted(set(classLabels))
-classDict = dict(zip(classNames,range(10)))
 
-y = np.mat([classDict[value] for value in classLabels]).T
 
-N = len(y)
+N = len(mpg)
 M = len(attributeNames)
-C = len(classNames)
+
+Y = X - np.ones((N,1))*X.mean(0)
+U,S,V = linalg.svd(Y,full_matrices=False)
+rho = (S*S) / (S*S).sum() 
+figure()
+plot(range(1,len(rho)+1),rho,'o-')
+title('Variance explained by principal components');
+xlabel('Principal component');
+ylabel('Variance explained');
+show()
