@@ -52,9 +52,10 @@ X = np.asmatrix(X)
 
 print(X[0])
 
-
+attributeNames = ['mpg','cylinders','displacement','horsepower','weight',
+                  'acceleration','model year','usa','europe','japan']
 #Nu indsættes labels
-classLabels = ['mpg','cylinders','displacement','horsepower','weight','acceleration','model year','usa','europe','japan']
+classLabels = 
 classNames = sorted(set(classLabels))
 classDict = dict(zip(classNames,range(10)))
 
