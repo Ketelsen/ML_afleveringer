@@ -8,9 +8,9 @@ from scipy.io import loadmat
 import scipy.sparse as sp
 
 
-# txt filen åbnes med numpy 
+# txt filen åbnes med numpy indsætter random tal på missing values
 X = np.genfromtxt('../Data/mpg.txt',dtype='float',usecols=(0,1,2,3,4,5,6,7),
-                  missing_values={3:"?"}, filling_values={3:0})
+                  missing_values={3:"?"}, filling_values={3:100})
 
 #Array konverteres til en matrix
 X = np.asmatrix(X)
